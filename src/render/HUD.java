@@ -66,7 +66,6 @@ public class HUD {
         int gap = 25;
 
         g2.drawString("=== FLIGHT DATA ===", x, y); y += gap;
-        g2.drawString(String.format("ALTITUDE     : %.0f m", sim.aircraft.altitude), x, y); y += gap;
         g2.drawString(String.format("AIRSPEED     : %.3f m/s", sim.aircraft.velocity.x), x, y); y += gap;
         g2.drawString(String.format("VERT.SPD     : %.1f m/s", -sim.aircraft.velocity.y), x, y); y += gap;
         y += 10; // Spazio extra per separare i blocchi
@@ -83,6 +82,7 @@ public class HUD {
         g2.drawString("=== AERODYNAMICS ===", x, y); y += gap;
         g2.drawString(String.format("AoA (Alpha): %+.1f °", sim.aircraft.alpha), x, y); y += gap;
         g2.drawString(String.format("PITCH      : %+.1f °", sim.aircraft.pitch), x, y); y += gap;
+        g2.drawString(String.format("ELV (Delta): %+.1f °", sim.aircraft.elevatorAngle), x, y); y += gap;
         g2.drawString(String.format("C_L  : %.3f", sim.aircraft.liftCoefficient), x, y); y += gap;
         g2.drawString(String.format("C_D  : %.3f", sim.aircraft.dragCoefficient), x, y); y += gap;
 
