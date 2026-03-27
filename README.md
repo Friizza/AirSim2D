@@ -27,3 +27,14 @@ This isn't an arcade game. The flight model relies on actual physics:
 * **W / S:** Manual pitch override (forces the nose up or down).
 * **Up / Down Arrows:** Manually adjust the elevator angle (useful if Auto-Trim is off and you want to balance the aerodynamic forces yourself).
 * **ENTER:** Reset the simulation if you stall and crash.
+
+## 🔮 Future Plans
+
+This simulator is a continuous work in progress. Here are a few aerodynamic and mechanical features I plan to implement next to push the realism even further:
+
+* **Realistic Control Inputs (Yoke Simulation):** Replacing the manual pitch override (W/S keys) with a simulated yoke. Inputs will directly actuate the elevator control surfaces, allowing the aircraft's pitch to change naturally through aerodynamic pitching moments rather than hardcoded angle adjustments.
+* **High-Lift Devices (Flaps & Slats):** Dynamically shifting the lift and drag curves to allow for realistic, low-speed takeoff and landing profiles.
+* **Engine Inertia & Position:** Simulating turbofan spool-up/spool-down times (delaying thrust application) and calculating the pitching moment caused by the engines being mounted below the Center of Gravity.
+* **Transonic Aerodynamics:** Implementing Mach wave drag for high-altitude cruise speeds.
+* **IAS vs TAS:** Calculating Indicated Airspeed (IAS) based on dynamic pressure for the HUD, rather than just displaying True Airspeed (TAS).
+* **Ground Mechanics:** Adding landing gear physics, including rolling friction, braking force, and gear drag when extended.
