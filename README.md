@@ -7,7 +7,10 @@
 
 A physically rigorous 2D flight dynamics simulator of an Airbus A320, written from scratch in Java. The flight model is built on the full 3-DOF (x, y, θ) equations of motion for a rigid body: translational dynamics driven by the four aerodynamic forces, and rotational dynamics governed by pitching moments about the centre of gravity.
 
-This isn't an arcade game. The flight model relies on actual physics:
+This isn't an arcade game. The flight model relies on actual physics.
+
+> 📥 **Download:** [Latest Release](https://edoardofrisenda.com/assets/AirSim2D.jar)  
+> ☕ **Requirement:** Java 11+ is required to run the program.
 
 ---
 
