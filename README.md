@@ -17,8 +17,8 @@ This isn't an arcade game. The flight model relies on actual physics:
 
 At every timestep `dt`, the simulator integrates Newton's second law in both translational and rotational form:
 ```
-$$\sum F = m \cdot a$$          (translational)
-$$\sum M_{cg} = I_{zz} \cdot \dot{\omega}$$   (rotational — pitch axis)
+ΣF = m · a          (translational)
+ΣM_cg = I_zz · α   (rotational — pitch axis)
 ```
 
 State vector: `[x, y, θ, vx, vy, ω]` — updated at 200 Hz via Euler integration, fully decoupled from the render loop.
@@ -27,21 +27,21 @@ State vector: `[x, y, θ, vx, vy, ω]` — updated at 200 Hz via Euler integrati
 
 Dynamic pressure and aerodynamic forces follow standard compressible-flow relations:
 ```
-$$q = \frac{1}{2} \rho V^2$$
-$$L_w = q S_w C_{L_w}(\alpha)$$
-$$L_t = q S_t C_{L_t}(\alpha_t) \quad \text{where} \quad \alpha_t = \alpha + \delta_e$$
-$$D = q (S_w + S_t) C_D$$
+q   = ½ · ρ · V²
+L_w = q · S_w · C_L(α)
+L_t = q · S_t · C_L(α_t)        where α_t = α + δ_e
+D   = q · (S_w + S_t) · C_D
 ```
 
 **Angle of Attack** is computed geometrically at each timestep as the difference between pitch angle θ and the flight path angle γ = atan2(−Vy, Vx), accounting for wind.
 
 **Lift curve** — piecewise linear with stall break at |α| = 15°:
-- Linear regime: `$$C_L = 0.2 + 0.1 \cdot \alpha$$`
-- Post-stall: `$$C_L$$` drops linearly (positive and negative stall modelled separately)
+- Linear regime: `C_L = 0.2 + 0.1 · α`
+- Post-stall: `C_L` drops linearly (positive and negative stall modelled separately)
 
 **Drag polar** — parabolic, consistent with low-speed aerodynamics:
 ```
-$$C_D = C_{D_0} + k \cdot C_L^2 \quad (C_{D_0} = 0.028, k = 0.04375)$$
+C_D = C_D0 + k · C_L²       (C_D0 = 0.028, k = 0.04375)
 ```
 With an additional induced drag penalty past the stall angle.
 
@@ -49,10 +49,10 @@ With an additional induced drag penalty past the stall angle.
 
 Lift is not a single resultant vector. The engine computes it separately for the main wing and the tailplane, each with its own area, lift coefficient, and moment arm relative to the CG:
 ```
-$$M_{cg} = L_w \cdot d_w + L_t \cdot d_t + M_{damp}$$
+M_cg = L_w · d_w + L_t · d_t + M_damp
 ```
 
-Moment arms (`d_w = +3.84 m`, `d_t = −14.19 m`) are derived from the A320 three-view drawing at a calibrated scale of `0.0713 m/px`. Aerodynamic pitch damping `$$M_{damp} = -800000 \cdot \omega$$` prevents unrealistic divergent oscillations.
+Moment arms (`d_w = +3.84 m`, `d_t = −14.19 m`) are derived from the A320 three-view drawing at a calibrated scale of `0.0713 m/px`. Aerodynamic pitch damping `M_damp = −800 000 · ω` prevents unrealistic divergent oscillations.
 
 ### ISA Atmosphere
 
@@ -60,8 +60,8 @@ Air density follows the International Standard Atmosphere — two-layer model:
 
 | Layer | Formula |
 |---|---|
-| Troposphere (0–11 km) | `$\rho = 1.225 \cdot (1 - 2.2557 \times 10^{-5} \cdot h)^{4.256}$` |
-| Stratosphere (11–20 km) | `$\rho = \rho_{11} \cdot e^{-1.57 \times 10^{-4} \cdot (h - 11000)}$` |
+| Troposphere (0–11 km) | `ρ = 1.225 · (1 − 2.2557×10⁻⁵ · h)^4.256` |
+| Stratosphere (11–20 km) | `ρ = ρ₁₁ · exp(−1.57×10⁻⁴ · (h − 11000))` |
 
 Engine thrust is scaled proportionally to air density, consistent with turbofan behaviour at altitude.
 
@@ -69,7 +69,7 @@ Engine thrust is scaled proportionally to air density, consistent with turbofan 
 
 A built-in trim computer solves analytically for the elevator deflection `δ_e` that zeroes the net pitching moment at the current AoA:
 ```
-$$\delta_e = \frac{-(S_w \cdot C_L(\alpha) \cdot d_w)}{S_t \cdot d_t \cdot 0.1} - \alpha$$
+δ_e = [ −(S_w · C_L(α) · d_w) / (S_t · d_t) ] / 0.1 − α
 ```
 
 The elevator then slews toward the target at a finite rate (15°/s), emulating actuator dynamics. Manual override disengages it instantly.
@@ -95,7 +95,7 @@ The elevator then slews toward the target at a finite rate (15°/s), emulating a
 | **AUTO TRIM button** | Toggle trim computer |
 | **ENTER** | Reset after stall |
 
-The simulation starts trimmed in level flight at **10 000 m**, **258.7 m/s**, with auto-trim off.
+The simulation starts trimmed in level flight at **10 000 m**, **258.7 m/s**, with auto-trim on.
 
 ---
 
