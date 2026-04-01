@@ -95,7 +95,7 @@ The elevator then slews toward the target at a finite rate (15°/s), emulating a
 | **AUTO TRIM button** | Toggle trim computer |
 | **ENTER** | Reset after stall |
 
-The simulation starts trimmed in level flight at **10 000 m**, **258.7 m/s**, with auto-trim on.
+The simulation starts trimmed in level flight at **10 000 m**, **258.7 m/s**, with auto-trim off.
 
 ---
 
